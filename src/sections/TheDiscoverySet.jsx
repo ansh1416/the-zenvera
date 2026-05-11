@@ -7,13 +7,11 @@ import Still from "../assets/Still.PNG"
 import Mine from "../assets/Mine.PNG"
 import Main from "../assets/collection-final.PNG"
 import { useCart } from "../context/CartContext"
+import { products } from "../data/products"
 
 import { motion } from "framer-motion"
 import { easeOutCinematic, easeOutLuxury } from "../utils/motion"
 
-function TheDiscoverySet() {
-
-  const { addItem } = useCart()
 
   const collection = [
     {
@@ -71,13 +69,22 @@ function TheDiscoverySet() {
     },
   ]
 
-  const [active, setActive] = useState(collection[0])
+
+
+function TheDiscoverySet() {
+
+    const { addItem } = useCart()
+
+      const [active, setActive] = useState(collection[0])
 
   const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
     setQuantity(1)
   }, [active])
+
+
+
 
   return (
     <section
@@ -266,27 +273,19 @@ function TheDiscoverySet() {
             "
           >
             {/* FLOATING IMAGE */}
-            <motion.img
-              animate={{
-                y: [0, -8, 0],
-              }}
-              transition={{
-                duration: 9,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              src={active.image}
-              alt={active.name}
-              className="
-                w-full
-                h-[420px]
-                md:h-[680px]
-                object-cover
-                transition-transform
-                duration-700
-                will-change-transform
-              "
-            />
+            {/* Float wrapper — never unmounts */}
+<motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}>
+  {/* Only the image transitions on tab change */}
+  <motion.img
+    key={active.name}
+    initial={{ opacity: 0, scale: 1.04 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.9, ease: easeOutCinematic }}
+    src={active.image}
+    alt={active.name}
+    className="w-full h-[420px] md:h-[680px] object-cover will-change-transform"
+  />
+</motion.div>
           </div>
         </motion.div>
 

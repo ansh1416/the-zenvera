@@ -19,7 +19,7 @@ export const products = [
 
     price: 2999,
 
-    tone: "#7d746d",
+    tone: "#d6c8bd",
 
     notes: "violet skin / cold musk / pale woods",
 
@@ -51,7 +51,7 @@ export const products = [
 
     price: 2999,
 
-    tone: "#5f6d7a",
+    tone: "#aebfd1",
 
     notes: "silver iris / silk smoke / warm skin",
 
@@ -147,7 +147,7 @@ export const products = [
 
     price: 2999,
 
-    tone: "#8f4035",
+    tone: "#e0a39a",
 
     notes: "pale rose / skin salt / dark vanilla",
 

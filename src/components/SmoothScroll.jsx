@@ -57,8 +57,7 @@ function SmoothScroll() {
 
     frameId = requestAnimationFrame(raf)
 
-    // Optimize scroll performance
-    window.addEventListener("scroll", () => {}, { passive: true })
+
 
     return () => {
       cancelAnimationFrame(frameId)

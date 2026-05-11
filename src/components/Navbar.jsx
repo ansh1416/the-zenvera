@@ -4,6 +4,25 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useCart } from "../context/CartContext"
 import { easeOutCinematic, easeOutLuxury } from "../utils/motion"
 
+// Add at top of Navbar
+let ticking = false
+
+const handleScroll = () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const currentScroll = window.scrollY
+      if (currentScroll > lastScroll && currentScroll > 80) {
+        setShowNavbar(false)
+      } else {
+        setShowNavbar(true)
+      }
+      lastScroll = currentScroll
+      ticking = false
+    })
+    ticking = true
+  }
+}
+
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [showNavbar, setShowNavbar] = useState(true)

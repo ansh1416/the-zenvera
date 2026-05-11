@@ -1,12 +1,7 @@
 import { useRef } from "react"
 import { useNavigate } from "react-router-dom"
 
-import AfterYou from "../assets/AfterYou.PNG"
-import Closer from "../assets/Closer.PNG"
-import Naked from "../assets/Naked.PNG"
-import Still from "../assets/Still.PNG"
-import Mine from "../assets/Mine.PNG"
-import Main from "../assets/collection-final.PNG"
+import { products } from "../data/products"
 
 import {
   motion,
@@ -15,34 +10,6 @@ import {
 } from "framer-motion"
 import { easeOutCinematic, easeOutLuxury } from "../utils/motion"
 
-
-const fragrances = [
-  {
-    name: "AFTER YOU",
-    line: "The scent of longing that never truly leaves.",
-    image: AfterYou,
-  },
-  {
-    name: "CLOSER",
-    line: "Soft intimacy wrapped in midnight warmth.",
-    image: Closer,
-  },
-  {
-    name: "NAKED",
-    line: "Desire with nothing left to hide.",
-    image: Naked,
-  },
-  {
-    name: "STILL",
-    line: "Silence darker than memory itself.",
-    image: Still,
-  },
-  {
-    name: "MINE",
-    line: "Possession disguised as tenderness.",
-    image: Mine,
-  },
-]
 
 function TheObsession() {
 
@@ -124,9 +91,6 @@ function TheObsession() {
 
           {/* LABEL */}
           <motion.p
-            style={{
-              y: contentY,
-            }}
             initial={{
               opacity: 0,
               y: 18,
@@ -227,9 +191,7 @@ function TheObsession() {
 
           {/* DESCRIPTION */}
           <motion.p
-            style={{
-              x: -contentY,
-            }}
+
             initial={{
               opacity: 0,
               y: 16,
@@ -266,7 +228,7 @@ function TheObsession() {
       {/* CINEMATIC FRAGRANCE EXPERIENCE */}
 <div className="relative bg-black overflow-hidden">
 
-  {fragrances.map((item, index) => (
+  {products.map((item, index) => (
 
     <section
       key={item.name}
@@ -300,7 +262,7 @@ function TheObsession() {
   }}
 
   viewport={{
-    once: false,
+    once: true,
     amount: 0.2,
   }}
 
@@ -328,7 +290,6 @@ function TheObsession() {
 
     className={`
       absolute
-
       top-1/2
       -translate-y-1/2
 
@@ -340,17 +301,13 @@ function TheObsession() {
 
       w-[900px]
       max-w-none
-
       object-cover
-
-      opacity-[0.28]
-
-      blur-[2px]
-
+      grayscale-[0.7hi0]
+      opacity-[0.45]
       scale-[1.9]
-
       rotate-[12deg]
-
+      transform-gpu
+      will-change-transform
       select-none
     `}
   />
@@ -410,21 +367,23 @@ function TheObsession() {
             relative
             w-full
             md:w-[72%]
-            flex-shrink-0
+            flex-shrink-0 
+            transform-gpu
             will-change-transform
+            
           "
         >
 
           {/* MOBILE ATMOSPHERE GLOW */}
           <div
+          style={{
+  backgroundColor: item.tone,
+  opacity: 0.50,
+}}
             className="
               absolute
               inset-0
-
-              bg-[#c9baaa]/[0.02]
-
               blur-3xl
-
               scale-110
 
               md:hidden
@@ -490,6 +449,10 @@ function TheObsession() {
 
               overflow-hidden
 
+              transform-gpu
+              
+              will-change-transform
+
               aspect-[4/5]
               md:aspect-[16/11]
             "
@@ -504,6 +467,9 @@ function TheObsession() {
                 w-full
 
                 object-cover
+                transform-gpu
+              
+               will-change-transform
 
                 scale-[1.02]
 
@@ -553,31 +519,18 @@ function TheObsession() {
 
   {/* NUMBER */}
   <p
-    className={`
+
+    style={{
+    color: item.tone,
+  }}
+    className="
       mb-5
 
       text-[9px]
       md:text-[10px]
 
       uppercase
-      tracking-[0.42em]
-
-      ${
-        item.name === "AFTER YOU"
-          ? "text-[#7d746d]/70"
-
-          : item.name === "CLOSER"
-          ? "text-[#5f6d7a]/70"
-
-          : item.name === "NAKED"
-          ? "text-[#c6a16b]/70"
-
-          : item.name === "STILL"
-          ? "text-[#7b4a32]/70"
-
-          : "text-[#8f4035]/70"
-      }
-    `}
+      tracking-[0.42em]"
   >
     Obsession {String(index + 1).padStart(2, "0")}
   </p>
@@ -600,27 +553,13 @@ function TheObsession() {
 
       leading-[0.88]
 
-      ${
-        item.name === "AFTER YOU"
-          ? "text-[#7d746d]"
-
-          : item.name === "CLOSER"
-          ? "text-[#5f6d7a]"
-
-          : item.name === "NAKED"
-          ? "text-[#c6a16b]"
-
-          : item.name === "STILL"
-          ? "text-[#7b4a32]"
-
-          : "text-[#8f4035]"
-      }
 
       mb-6
       md:mb-8
     `}
     style={{
       fontFamily: "'Cormorant Garamond', serif",
+      color: item.tone,
     }}
   >
     {item.name}
@@ -628,7 +567,12 @@ function TheObsession() {
 
   {/* DESCRIPTION */}
   <p
-    className={`
+
+  style={{
+      fontFamily: "'Cormorant Garamond', serif",
+      color: item.tone,
+}}
+    className="
       max-w-[320px]
 
       text-[15px]
@@ -637,22 +581,7 @@ function TheObsession() {
 
       leading-[1.9]
 
-      ${
-        item.name === "AFTER YOU"
-          ? "text-[#7d746d]/90"
-
-          : item.name === "CLOSER"
-          ? "text-[#5f6d7a]/90"
-
-          : item.name === "NAKED"
-          ? "text-[#c6a16b]/90"
-
-          : item.name === "STILL"
-          ? "text-[#7b4a32]/90"
-
-          : "text-[#8f4035]/90"
-      }
-    `}
+"
   >
     {item.line}
   </p>
@@ -687,7 +616,14 @@ function TheObsession() {
 >
 
   <p
-    className={`
+
+    style={{
+      fontFamily: "'Cormorant Garamond', serif",
+      color: item.tone,
+}}
+
+
+    className="
       mb-4
 
       text-[9px]
@@ -696,22 +632,7 @@ function TheObsession() {
 
       tracking-[0.42em]
 
-      ${
-        item.name === "AFTER YOU"
-          ? "text-[#7d746d]"
-
-          : item.name === "CLOSER"
-          ? "text-[#5f6d7a]"
-
-          : item.name === "NAKED"
-          ? "text-[#c6a16b]"
-
-          : item.name === "STILL"
-          ? "text-[#7b4a32]"
-
-          : "text-[#8f4035]"
-      }
-    `}
+"
   >
     Emotional State
   </p>
@@ -749,6 +670,12 @@ function TheObsession() {
 
 <motion.button
 
+  style={{
+      color: item.tone,
+      borderColor: item.tone,
+
+}}
+
   whileHover={{
     y: -4,
   }}
@@ -761,7 +688,7 @@ onClick={() => {
   navigate(`/fragrance/${item.name.toLowerCase().replace(/\s+/g, "-")}`)
 }}
 
-  className={`
+  className="
     group
     relative
 
@@ -784,26 +711,16 @@ onClick={() => {
     transition-all
     duration-700
 
-    ${
-      item.name === "AFTER YOU"
-        ? "text-[#7d746d] border-[#7d746d]"
-
-        : item.name === "CLOSER"
-        ? "text-[#5f6d7a] border-[#5f6d7a]"
-
-        : item.name === "NAKED"
-        ? "text-[#c6a16b] border-[#c6a16b]"
-
-        : item.name === "STILL"
-        ? "text-[#7b4a32] border-[#7b4a32]"
-
-        : "text-[#8f4035] border-[#8f4035]"
-    }
-  `}
+"
 >
 
   {/* BUTTON BACKGROUND */}
   <motion.span
+
+    style={{
+      
+      color: item.tone,
+}}
 
     initial={{
       x: "-100%",
@@ -818,26 +735,11 @@ onClick={() => {
       ease: [0.22, 1, 0.36, 1],
     }}
 
-    className={`
+    className="
       absolute
       inset-0
 
-      ${
-        item.name === "AFTER YOU"
-          ? "bg-[#7d746d]"
-
-          : item.name === "CLOSER"
-          ? "bg-[#5f6d7a]"
-
-          : item.name === "NAKED"
-          ? "bg-[#c6a16b]"
-
-          : item.name === "STILL"
-          ? "bg-[#7b4a32]"
-
-          : "bg-[#8f4035]"
-      }
-    `}
+      "
   />
 
   {/* TEXT */}
@@ -849,30 +751,19 @@ onClick={() => {
 
   {/* MOBILE DIVIDER */}
   <div
-    className={`
+
+  style={{
+  backgroundColor: item.tone,
+}}
+
+    className="
       mt-10
 
       h-px
       w-16
 
-      ${
-        item.name === "AFTER YOU"
-          ? "bg-[#7d746d]"
-
-          : item.name === "CLOSER"
-          ? "bg-[#5f6d7a]"
-
-          : item.name === "NAKED"
-          ? "bg-[#c6a16b]"
-
-          : item.name === "STILL"
-          ? "bg-[#7b4a32]"
-
-          : "bg-[#8f4035]"
-      }
-
       md:hidden
-    `}
+    "
   />
 
 </motion.div>

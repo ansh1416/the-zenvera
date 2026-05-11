@@ -105,11 +105,7 @@ a,
   animation: float 14s ease-in-out infinite;
 }
 
-/* OPTIMIZE SCROLLING */
-body {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-}
+
 
 /* IMPROVE TOUCH PERFORMANCE ON MOBILE */
 @media (prefers-reduced-motion: reduce) {

@@ -39,24 +39,6 @@ const Hero = () => {
       "
     >
 
-      {/* SCROLL PROGRESS BAR - LUXURY GRADIENT */}
-      <motion.div
-        className="
-          fixed
-          top-0
-          left-0
-          right-0
-          h-[2px]
-          origin-left
-          z-[9999]
-          bg-gradient-to-r
-          from-[#c9baaa]/0
-          via-[#c9baaa]/80
-          to-[#c9baaa]/0
-          shadow-[0_0_24px_rgba(201,186,170,0.16)]
-        "
-        style={{ scaleX }}
-      />
 
 {/* BLURRED BASE - SUBTLE PARALLAX */}
 <motion.img

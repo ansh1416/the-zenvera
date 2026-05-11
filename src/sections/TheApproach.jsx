@@ -37,6 +37,32 @@ const floatingWords = [
   { text: "CRAVE", className: "top-[66%] right-[8%]" },
 ]
 
+function FloatingWord({ item, index, scrollYProgress }) {
+  const y = useTransform(
+    scrollYProgress,
+    [0, 1],
+    index % 2 === 0 ? [0, -70 - index * 8] : [0, 50 + index * 5]
+  )
+
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [0.10, 0.22])
+
+  return (
+    <motion.div
+      className={`absolute ${item.className}`}
+      style={{ y, opacity }}
+    >
+      <span
+        className={`text-[14px] ${
+          index % 3 === 0
+            ? "md:text-[42px]"
+            : "md:text-[30px]"
+        } sm:text-[18px] font-light uppercase tracking-[0.32em] text-white/80 whitespace-nowrap select-none`}
+      >
+        {item.text}
+      </span>
+    </motion.div>
+  )
+}
 
 
   return (
@@ -56,56 +82,17 @@ const floatingWords = [
         z-10
       "
     >
-
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
-
         {floatingWords.map((item, i) => (
+    <FloatingWord
+      key={item.text}
+      item={item}
+      index={i}
+      scrollYProgress={scrollYProgress}
+    />
+  ))}
 
-          <motion.div
-            key={`${item.text}-${i}`}
-            className={`
-              absolute
-              ${item.className}
-            `}
-            style={{
-              y: useTransform(
-                scrollYProgress,
-                [0, 1],
-                i % 2 === 0
-                  ? [0, -70 - i * 8]
-                  : [0, 50 + i * 5]
-              ),
 
-              opacity: useTransform(
-                scrollYProgress,
-                [0, 0.5],
-                [0.10, 0.22]
-              ),
-            }}
-          >
-
-            <span
-              className={`
-  text-[14px]
-  ${i % 3 === 0 ? "md:text-[42px]" : "md:text-[30px]"}
-  sm:text-[18px]
-  font-light
-  uppercase
-  tracking-[0.32em]
-  text-white/80
-  opacity-90
-  whitespace-nowrap
-  select-none
-`}
-            >
-              {item.text}
-            </span>
-
-          </motion.div>
-
-        ))}
-
-      </div>
+     
 
       <div className="absolute inset-0 pointer-events-none">
 
@@ -323,6 +310,7 @@ const floatingWords = [
                 bg-white
                 mix-blend-soft-light
                 pointer-events-none
+                transform-gpu
                 will-change-transform
               "
             />
@@ -336,6 +324,7 @@ const floatingWords = [
               muted
               loop
               playsInline
+              preload="none"
               transition={{
                 duration: 14,
                 repeat: Infinity,
