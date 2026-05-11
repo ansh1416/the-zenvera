@@ -24,18 +24,9 @@ function Home() {
       
         <TheApproach />
       
-
-      
         <TheObsession />
 
-        <TheDiscoverySet />
-    
-      
-
-      {/* Footer slower reveal */}
-    
-        <Footer />
-      
+        <TheDiscoverySet />  
 
     </main>
   )
