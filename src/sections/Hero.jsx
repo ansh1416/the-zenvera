@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom"
-import hero from "../assets/hero-main.png"
+import hero from "../assets/hero-main.PNG"
 import { motion, useScroll,useTransform, useSpring } from "framer-motion"
 
 

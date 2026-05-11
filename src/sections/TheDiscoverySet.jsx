@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react"
 
-import AfterYou from "../assets/AfterYou.png"
-import Closer from "../assets/Closer.png"
-import Naked from "../assets/Naked.png"
-import Still from "../assets/Still.png"
-import Mine from "../assets/Mine.png"
-import Main from "../assets/collection-final.png"
+import AfterYou from "../assets/AfterYou.PNG"
+import Closer from "../assets/Closer.PNG"
+import Naked from "../assets/Naked.PNG"
+import Still from "../assets/Still.PNG"
+import Mine from "../assets/Mine.PNG"
+import Main from "../assets/collection-final.PNG"
 import { useCart } from "../context/CartContext"
 
 import { motion } from "framer-motion"

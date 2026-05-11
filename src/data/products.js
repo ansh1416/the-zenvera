@@ -1,9 +1,9 @@
-import AfterYou from "../assets/AfterYou.png"
-import Closer from "../assets/Closer.png"
-import Naked from "../assets/Naked.png"
-import Still from "../assets/Still.png"
-import Mine from "../assets/Mine.png"
-import CollectionFinal from "../assets/collection-final.png"
+import AfterYou from "../assets/AfterYou.PNG"
+import Closer from "../assets/Closer.PNG"
+import Naked from "../assets/Naked.PNG"
+import Still from "../assets/Still.PNG"
+import Mine from "../assets/Mine.PNG"
+import CollectionFinal from "../assets/collection-final.PNG"
 
 export const products = [
   {
