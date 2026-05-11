@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@keyframes float {
+  0% {
+    transform: scale(1.02) translateY(0px);
+  }
+
+  50% {
+    transform: scale(1.05) translateY(-8px);
+  }
+
+  100% {
+    transform: scale(1.02) translateY(0px);
+  }
+}
+
+html,
+body,
+#root {
+  background: #050505;
+}
