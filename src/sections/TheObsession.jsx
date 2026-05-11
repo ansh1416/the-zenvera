@@ -12,6 +12,7 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion"
+import { easeOutCinematic, easeOutLuxury } from "../utils/motion"
 
 const fragrances = [
   {
@@ -50,28 +51,10 @@ function TheObsession() {
     offset: ["start end", "end start"],
   })
 
-  const bgY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, -260]
-  )
-
-  const bgOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.4],
-    [1, 0.15]
-  )
-
-  const contentY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, -120]
-  )
-  const bgImageY = useTransform(
-  scrollYProgress,
-  [0, 1],
-  [0, -180]
-)
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, -240])
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.35], [1, 0.12])
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -110])
+  const bgImageY = useTransform(scrollYProgress, [0, 1], [0, -160])
 
   return (
     <section className="bg-black overflow-hidden">
@@ -81,85 +64,29 @@ function TheObsession() {
       {/* INTRO */}
       <motion.div
         ref={sectionRef}
-
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{
           once: true,
           amount: 0.2,
         }}
-
         transition={{
-          duration: 1.6,
-          ease: [0.22, 1, 0.36, 1],
+          duration: 1.5,
+          ease: easeOutCinematic,
         }}
-
         className="
           relative
           overflow-hidden
-
           px-6
           md:px-16
           lg:px-24
-
           pt-40
           md:pt-56
-
           pb-28
           md:pb-40
         "
       >
-<motion.img
 
-          style={{
-            y: bgImageY,
-          }}
-  src={Main}
-  alt=""
-
-
-
- className="
-  absolute
-
-  top-1/2
-  md:top-1/2
-
-  left-1/2
-  md:left-auto
-
-  md:right-[-180px]
-
-  -translate-x-1/2
-  md:translate-x-0
-
-  -translate-y-1/2
-
-  w-[160vw]
-  sm:w-[130vw]
-
-  md:w-[1000px]
-
-  max-w-none
-
-  opacity-[0.14]
-  md:opacity-[0.14]
-
-  grayscale
-
-  contrast-[1.1]
-
-  brightness-[0.55]
-
-  saturate-0
-
-  mix-blend-lighten
-
-  pointer-events-none
-  select-none
-"
-/>
 
 <div
   className="
@@ -193,39 +120,35 @@ function TheObsession() {
 
           {/* LABEL */}
           <motion.p
-                    style={{
-            y: contentY,
-            
-          }}
+            style={{
+              y: contentY,
+            }}
             initial={{
               opacity: 0,
               y: 18,
+              filter: "blur(2px)",
             }}
-
             whileInView={{
               opacity: 1,
               y: 0,
+              filter: "blur(0px)",
             }}
-
             viewport={{
               once: true,
             }}
-
             transition={{
               delay: 0.2,
-              duration: 1.4,
-              ease: [0.22, 1, 0.36, 1],
+              duration: 1.2,
+              ease: easeOutCinematic,
             }}
-
             className="
               uppercase
-
               text-[10px]
               tracking-[0.42em]
-
               text-[#c9baaa]/45
-
               mb-10
+              transition-opacity
+              duration-700
             "
           >
             The Collection
@@ -233,44 +156,40 @@ function TheObsession() {
 
           {/* TITLE */}
           <motion.h2
-             
             initial={{
               opacity: 0,
-              y: 30,
+              y: 32,
+              filter: "blur(3px)",
             }}
-
             whileInView={{
               opacity: 1,
               y: 0,
+              filter: "blur(0px)",
             }}
-
             viewport={{
               once: true,
             }}
-
             transition={{
-              delay: 0.4,
-              duration: 2,
-              ease: [0.22, 1, 0.36, 1],
+              delay: 0.35,
+              duration: 1.6,
+              ease: easeOutCinematic,
             }}
-
             className="
               uppercase
-
               text-[54px]
               sm:text-[72px]
               md:text-[110px]
               lg:text-[140px]
-
               leading-[0.88]
               tracking-[-0.08em]
-
-              text-[#c9baaa]/40
-
+              text-[#c9baaa]
               font-light
+              transition-colors
+              duration-700
             "
             style={{
               fontFamily: "'Cormorant Garamond', serif",
+
             }}
           >
             FIVE SCENTS.
@@ -280,76 +199,58 @@ function TheObsession() {
 
           {/* DIVIDER */}
           <motion.div
-          
             initial={{
               width: 0,
               opacity: 0,
             }}
-
             whileInView={{
               width: 120,
               opacity: 1,
             }}
-
             viewport={{
               once: true,
-            }}
-
-            transition={{
-              delay: 0.8,
-              duration: 1.4,
-              ease: [0.22, 1, 0.36, 1],
             }}
 
             className="
               mt-10
               mb-10
-
-              h-px
-
-              bg-[#c9baaa]/20
+              h-[1.5px]
+              bg-gradient-to-r
+              from-[#c9baaa]/0
+              via-[#c9baaa]/40
+              to-[#c9baaa]/0
+              origin-left
             "
           />
 
           {/* DESCRIPTION */}
           <motion.p
-
-                    style={{
-            y: contentY,
-            
-          }}
+            style={{
+              x: contentY,
+            }}
             initial={{
               opacity: 0,
-              y: 18,
+              y: 16,
+              filter: "blur(4px)",
             }}
-
             whileInView={{
               opacity: 1,
               y: 0,
+              filter: "blur(0px)",
             }}
-
             viewport={{
               once: true,
             }}
 
-            transition={{
-              delay: 1,
-              duration: 1.8,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-
-            
-
             className="
               max-w-[700px]
-
               text-[15px]
               md:text-[18px]
-
               leading-[1.9]
               tracking-[0.03em]
-
-              text-[#c9baaa]/60
+              text-[#c9baaa]/80
+              transition-opacity
+              duration-700
             "
           >
             Every fragrance within THE ZENVERA
@@ -488,31 +389,30 @@ function TheObsession() {
         <motion.div
           initial={{
             opacity: 0,
-            y: 100,
+            y: 80,
+            filter: "blur(2px)",
+            scale: 0.92,
           }}
-
           whileInView={{
             opacity: 1,
             y: 0,
+            filter: "blur(0px)",
+            scale: 1,
           }}
-
           viewport={{
             once: false,
             amount: 0.25,
           }}
-
           transition={{
-            duration: 1.8,
-            ease: [0.22, 1, 0.36, 1],
+            duration: 1.6,
+            ease: easeOutCinematic,
           }}
-
           className="
             relative
-
             w-full
             md:w-[72%]
-
             flex-shrink-0
+            will-change-transform
           "
         >
 
@@ -623,36 +523,31 @@ function TheObsession() {
 <motion.div
   initial={{
     opacity: 0,
-    y: 50,
+    y: 60,
+    filter: "blur(2px)",
   }}
-
   whileInView={{
     opacity: 1,
     y: 0,
+    filter: "blur(0px)",
   }}
-
   viewport={{
     once: false,
     amount: 0.3,
   }}
-
   transition={{
-    duration: 1.6,
-    ease: [0.22, 1, 0.36, 1],
+    duration: 1.5,
+    ease: easeOutCinematic,
+    delay: 0.1,
   }}
-
   className="
     relative
     z-20
-
     w-full
     md:w-[28%]
-
     flex
     flex-col
-
     items-start
-
     px-1
     md:px-0
   "
@@ -764,7 +659,6 @@ function TheObsession() {
     {item.line}
   </p>
 
-  {/* BUTTON */}
   {/* EMOTIONAL TEXT */}
 <motion.div
 
@@ -806,18 +700,18 @@ function TheObsession() {
 
       ${
         item.name === "AFTER YOU"
-          ? "text-[#7d746d]/55"
+          ? "text-[#7d746d]"
 
           : item.name === "CLOSER"
-          ? "text-[#5f6d7a]/55"
+          ? "text-[#5f6d7a]"
 
           : item.name === "NAKED"
-          ? "text-[#c6a16b]/55"
+          ? "text-[#c6a16b]"
 
           : item.name === "STILL"
-          ? "text-[#7b4a32]/55"
+          ? "text-[#7b4a32]"
 
-          : "text-[#8f4035]/55"
+          : "text-[#8f4035]"
       }
     `}
   >
@@ -833,7 +727,7 @@ function TheObsession() {
 
       leading-[2]
 
-      text-[#c9baaa]/42
+      text-[#c9baaa]
     "
   >
     {
@@ -894,18 +788,18 @@ function TheObsession() {
 
     ${
       item.name === "AFTER YOU"
-        ? "text-[#7d746d] border-[#7d746d]/25"
+        ? "text-[#7d746d] border-[#7d746d]"
 
         : item.name === "CLOSER"
-        ? "text-[#5f6d7a] border-[#5f6d7a]/25"
+        ? "text-[#5f6d7a] border-[#5f6d7a]"
 
         : item.name === "NAKED"
-        ? "text-[#c6a16b] border-[#c6a16b]/25"
+        ? "text-[#c6a16b] border-[#c6a16b]"
 
         : item.name === "STILL"
-        ? "text-[#7b4a32] border-[#7b4a32]/25"
+        ? "text-[#7b4a32] border-[#7b4a32]"
 
-        : "text-[#8f4035] border-[#8f4035]/25"
+        : "text-[#8f4035] border-[#8f4035]"
     }
   `}
 >
@@ -932,18 +826,18 @@ function TheObsession() {
 
       ${
         item.name === "AFTER YOU"
-          ? "bg-[#7d746d]/10"
+          ? "bg-[#7d746d]"
 
           : item.name === "CLOSER"
-          ? "bg-[#5f6d7a]/10"
+          ? "bg-[#5f6d7a]"
 
           : item.name === "NAKED"
-          ? "bg-[#c6a16b]/10"
+          ? "bg-[#c6a16b]"
 
           : item.name === "STILL"
-          ? "bg-[#7b4a32]/10"
+          ? "bg-[#7b4a32]"
 
-          : "bg-[#8f4035]/10"
+          : "bg-[#8f4035]"
       }
     `}
   />
@@ -965,18 +859,18 @@ function TheObsession() {
 
       ${
         item.name === "AFTER YOU"
-          ? "bg-[#7d746d]/20"
+          ? "bg-[#7d746d]"
 
           : item.name === "CLOSER"
-          ? "bg-[#5f6d7a]/20"
+          ? "bg-[#5f6d7a]"
 
           : item.name === "NAKED"
-          ? "bg-[#c6a16b]/20"
+          ? "bg-[#c6a16b]"
 
           : item.name === "STILL"
-          ? "bg-[#7b4a32]/20"
+          ? "bg-[#7b4a32]"
 
-          : "bg-[#8f4035]/20"
+          : "bg-[#8f4035]"
       }
 
       md:hidden

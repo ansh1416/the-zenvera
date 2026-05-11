@@ -9,6 +9,7 @@ import Main from "../assets/collection-final.PNG"
 import { useCart } from "../context/CartContext"
 
 import { motion } from "framer-motion"
+import { easeOutCinematic, easeOutLuxury } from "../utils/motion"
 
 function TheDiscoverySet() {
 
@@ -101,38 +102,33 @@ function TheDiscoverySet() {
 
       {/* TOP LABEL */}
       <motion.p
-
         initial={{
           opacity: 0,
-          y: 20,
+          y: 16,
+          filter: "blur(2px)",
         }}
-
         whileInView={{
           opacity: 1,
           y: 0,
+          filter: "blur(0px)",
         }}
-
         viewport={{
           once: true,
         }}
-
         transition={{
-          duration: 1,
+          duration: 1.1,
+          ease: easeOutCinematic,
         }}
-
         className="
           relative
           z-10
-
           uppercase
-
           text-[10px]
-
           tracking-[0.42em]
-
           text-[#c9baaa]/40
-
           mb-10
+          transition-opacity
+          duration-700
         "
       >
         Discovery Set
@@ -238,108 +234,96 @@ function TheDiscoverySet() {
         {/* CENTER IMAGE */}
         <motion.div
           key={active.name}
-
           initial={{
             opacity: 0,
-            scale: 1.04,
+            scale: 1.06,
+            filter: "blur(4px)",
           }}
-
           animate={{
             opacity: 1,
             scale: 1,
+            filter: "blur(0px)",
           }}
-
           transition={{
-            duration: 1.1,
-            ease: [0.22, 1, 0.36, 1],
+            duration: 1.35,
+            ease: easeOutCinematic,
           }}
-
           className="
             relative
             z-10
+            will-change-transform
           "
         >
-
           {/* IMAGE CONTAINER */}
           <div
             className="
               relative
-
               overflow-hidden
-
               border
               border-white/10
-
               bg-[#060606]
+              shadow-2xl
             "
           >
-
             {/* FLOATING IMAGE */}
             <motion.img
-
               animate={{
-                y: [0, -10, 0],
+                y: [0, -8, 0],
               }}
-
               transition={{
-                duration: 8,
+                duration: 9,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-
               src={active.image}
               alt={active.name}
-
               className="
                 w-full
-
                 h-[420px]
                 md:h-[680px]
-
                 object-cover
+                transition-transform
+                duration-700
+                will-change-transform
               "
             />
-
           </div>
-
         </motion.div>
 
         {/* RIGHT SIDE */}
         <motion.div
           key={active.name + "-content"}
-
           initial={{
             opacity: 0,
-            y: 40,
+            y: 50,
+            filter: "blur(3px)",
           }}
-
           animate={{
             opacity: 1,
             y: 0,
+            filter: "blur(0px)",
           }}
-
           transition={{
-            duration: 1,
+            duration: 1.3,
+            ease: easeOutCinematic,
           }}
-
           className="
             relative
             z-20
+            transition-all
+            duration-700
           "
         >
-
           {/* SMALL LABEL */}
           <p
             className="
               uppercase
-
               text-[10px]
-
               tracking-[0.42em]
-
               text-white/30
-
               mb-6
+              transition-colors
+              duration-700
             "
           >
             Final Obsession
@@ -349,15 +333,15 @@ function TheDiscoverySet() {
           <h2
             className="
               uppercase
-
               text-[56px]
               sm:text-[74px]
               md:text-[110px]
-
               leading-[0.88]
               tracking-[-0.08em]
-
               mb-8
+              transition-colors
+              duration-700
+              text-shadow
             "
             style={{
               color: active.tone,
@@ -371,13 +355,12 @@ function TheDiscoverySet() {
           <p
             className="
               max-w-[420px]
-
               text-[15px]
               md:text-[18px]
-
               leading-[1.9]
-
               text-[#c9baaa]/60
+              transition-opacity
+              duration-700
             "
           >
             {active.line}
@@ -385,63 +368,55 @@ function TheDiscoverySet() {
 
           {/* EMOTIONAL TEXT */}
           <motion.div
-
             initial={{
               opacity: 0,
-              y: 20,
+              y: 16,
+              filter: "blur(4px)",
             }}
-
             animate={{
               opacity: 1,
               y: 0,
+              filter: "blur(0px)",
             }}
-
             transition={{
-              delay: 0.2,
-              duration: 1,
+              delay: 0.15,
+              duration: 1.1,
+              ease: easeOutCinematic,
             }}
-
             className="
               mt-8
               mb-10
-
               border-l
               border-white/10
-
               pl-5
+              transition-all
+              duration-700
             "
           >
-
             <p
               className="
                 text-[14px]
                 md:text-[15px]
-
                 leading-[2]
-
                 text-[#c9baaa]/42
+                transition-colors
+                duration-700
               "
             >
               {
                 active.name === "AFTER YOU"
                   ? "Built around distance, memory, and unfinished love."
-
                   : active.name === "CLOSER"
                   ? "The warmth of intimacy in low light and silence."
-
                   : active.name === "NAKED"
                   ? "Emotional exposure with nothing left hidden."
-
                   : active.name === "STILL"
                   ? "The beauty of silence after emotional collapse."
-
                   : active.name === "MINE"
                   ? "Obsession disguised as tenderness and possession."
-
                   : "All five emotional addictions collected together."
               }
             </p>
-
           </motion.div>
 
           {/* DETAILS */}
@@ -670,29 +645,12 @@ function TheDiscoverySet() {
                     ease: [0.22, 1, 0.36, 1],
                   }}
 
-                  className={`
+                  className="
                     absolute
                     inset-0
 
-                    ${
-                      active.name === "AFTER YOU"
-                        ? "bg-[#7d746d]/10"
 
-                        : active.name === "CLOSER"
-                        ? "bg-[#5f6d7a]/10"
-
-                        : active.name === "NAKED"
-                        ? "bg-[#c6a16b]/10"
-
-                        : active.name === "STILL"
-                        ? "bg-[#7b4a32]/10"
-
-                        : active.name === "MINE"
-                        ? "bg-[#8f4035]/10"
-
-                        : "bg-[#c9baaa]/10"
-                    }
-                  `}
+                  "
                 />
 
                 <span className="relative z-10">
@@ -741,6 +699,7 @@ function TheDiscoverySet() {
                 duration-700
 
                 hover:border-[#c9baaa]/40
+                
               "
             >
 

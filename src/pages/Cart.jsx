@@ -131,7 +131,7 @@ function Cart() {
             >
               Your private
               <br />
-              selection.
+              selection
             </h1>
 
           </div>
@@ -181,7 +181,7 @@ function Cart() {
                 text-[#c9baaa]/55
               "
             >
-              Your cart is quiet.
+              Your cart is quiet
             </p>
 
             <Link

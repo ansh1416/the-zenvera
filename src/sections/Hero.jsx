@@ -1,29 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom"
 import hero from "../assets/hero-main.png"
-import { motion, useScroll,useTransform, useSpring } from "framer-motion"
-
+import { motion, useScroll, useTransform, useSpring } from "framer-motion"
+import { easeOutCinematic, easeOutLuxury } from "../utils/motion"
 
 const Hero = () => {
   const { scrollYProgress } = useScroll()
 
-const scaleX = useSpring(scrollYProgress, {
-  stiffness: 90,
-  damping: 20,
-  restDelta: 0.001,
-})
+  // Premium spring for progress line - smooth and responsive
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 75,
+    damping: 24,
+    restDelta: 0.001,
+    mass: 1,
+  })
 
-const { scrollY } = useScroll()
+  const { scrollY } = useScroll()
 
-const bgY = useTransform(scrollY, [0, 1000], [0, 40])
+  // Subtle parallax for background - slow, expensive-feeling motion
+  const bgY = useTransform(scrollY, [0, 1200], [0, 35])
 
-const textY = useTransform(scrollY, [0, 500], [0, -80])
-
-const textOpacity = useTransform(
-  scrollY,
-  [0, 350],
-  [1, 0]
-)
+  // Smooth text fade on scroll
+  const textY = useTransform(scrollY, [0, 500], [0, -75])
+  const textOpacity = useTransform(scrollY, [0, 380], [1, 0])
 
   return (
     <section
@@ -40,64 +39,63 @@ const textOpacity = useTransform(
       "
     >
 
+      {/* SCROLL PROGRESS BAR - LUXURY GRADIENT */}
       <motion.div
-  className="
-    fixed
-    top-0
-    left-0
-    right-0
-    h-px
-    origin-left
-    z-[9999]
+        className="
+          fixed
+          top-0
+          left-0
+          right-0
+          h-[2px]
+          origin-left
+          z-[9999]
+          bg-gradient-to-r
+          from-[#c9baaa]/0
+          via-[#c9baaa]/80
+          to-[#c9baaa]/0
+          shadow-[0_0_24px_rgba(201,186,170,0.16)]
+        "
+        style={{ scaleX }}
+      />
 
-    bg-gradient-to-r
-    from-[#c9baaa]/0
-    via-[#c9baaa]/70
-    to-[#c9baaa]/0
-  "
-  style={{
-    scaleX,
-  }}
-/>
-
-{/* BLURRED BASE */}
+{/* BLURRED BASE - SUBTLE PARALLAX */}
 <motion.img
   src={hero}
-  style={{ y: bgY ,scale:1.16, }}
-  alt=""
+  alt="The Zenvera Fragrance Collection"
+  style={{ y: bgY, scale: 1.16 }}
   className="
     absolute
     inset-0
     h-full
     w-full
-
     object-cover
-
     object-[30%_8%]
     sm:object-[center_18%]
 
     grayscale
-    brightness-[0.46]
-    sm:brightness-[0.42]
 
-    contrast-[1.18]
-    sm:contrast-[1.28]
+    brightness-[1]
+    sm:brightness-[1]
 
-    blur-[0.6px]
-    sm:blur-[0.8px]
+    contrast-[1.08]
+    sm:contrast-[1.12]
 
-    opacity-[0.94]
-    scale-[1.06]
-    sm:scale-[1.02]
+    blur-[0.3px]
+    sm:blur-[0.5px]
+
+    opacity-[0.98]
+
+    scale-[1.04]
+    sm:scale-[1.01]
 
     pointer-events-none
     select-none
-
-    animate-[float_14s_ease-in-out_infinite]
+    will-change-transform
+    animate-float
   "
 />
 
-{/* SHARP EDGE LAYER */}
+{/* SHARP DETAIL LAYER - ADDS DEPTH */}
 <img
   src={hero}
   alt=""
@@ -106,55 +104,37 @@ const textOpacity = useTransform(
     inset-0
     h-full
     w-full
-
     object-cover
-
     object-[58%_20%]
     sm:object-[center_18%]
 
-    grayscale
-    brightness-[0.56]
-    contrast-[1.32]
+    
+    brightness-[0.78]
 
-    opacity-[0.10]
+    contrast-[1.10]
+
+    opacity-[0.16]
+
     mix-blend-soft-light
-
     pointer-events-none
     select-none
   "
 />
 
-      
 
-      {/* BOTTOM ATMOSPHERE */}
-      <div
-        className="
-          absolute
-          bottom-0
-          left-0
-          right-0
-          h-[45%]
-          pointer-events-none
-          bg-gradient-to-t
-          from-black/70
-          via-black/25
-          to-transparent
-        "
-      />
 
       {/* TYPOGRAPHY BLOCK */}
-      <motion.div   
-
+      <motion.div
         style={{
           y: textY,
           opacity: textOpacity,
         }}
-
-        initial={{ opacity: 0, y: 18 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
-          duration: 2.8,
-          ease: [0.22, 1, 0.36, 1],
+          duration: 2.4,
+          ease: easeOutCinematic,
+          type: "tween",
         }}
         className="
           relative
@@ -166,43 +146,38 @@ const textOpacity = useTransform(
           md:-translate-y-[70px]
         "
       >
-
         {/* LABEL */}
         <motion.p
-        
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.6,
-              duration: 1.6,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-
+          initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{
+            delay: 0.55,
+            duration: 1.4,
+            ease: easeOutCinematic,
+          }}
           className="
             uppercase
             mb-5
             md:mb-6
             text-[10px]
             tracking-[0.42em]
-            text-[#c9baaa]/50
+            text-[#c9baaa]/60
             font-light
           "
         >
-          Eau de Parfum · 2025 Collection
+          Eau de Parfum · 2026 Collection
         </motion.p>
 
         {/* TITLE STACK */}
         <div className="relative">
-
           {/* THE */}
           <motion.h1
-
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{
-              delay: 0.8,
-              duration: 1.6,
-              ease: [0.22, 1, 0.36, 1],
+              delay: 0.75,
+              duration: 1.5,
+              ease: easeOutCinematic,
             }}
             className="
               uppercase
@@ -217,6 +192,8 @@ const textOpacity = useTransform(
               tracking-[0.12em]
               text-[#c9baaa]/80
               font-normal
+              transition-colors
+              duration-700
             "
             style={{
               fontFamily: "'Cormorant Garamond', serif",
@@ -227,12 +204,12 @@ const textOpacity = useTransform(
 
           {/* ZENVERA */}
           <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{
-              delay: 1,
+              delay: 0.95,
               duration: 1.6,
-              ease: [0.22, 1, 0.36, 1],
+              ease: easeOutCinematic,
             }}
             className="
               uppercase
@@ -244,24 +221,27 @@ const textOpacity = useTransform(
               tracking-[-0.095em]
               text-[#c9baaa]
               font-normal
+              transition-colors
+              duration-700
             "
             style={{
               fontFamily: "'Cormorant Garamond', serif",
+
             }}
           >
             ZENVERA
           </motion.h1>
-
         </div>
 
         {/* DIVIDER */}
         <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 1.2,
-              duration: 1.6,
-            }}
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={{ opacity: 1, scaleX: 1 }}
+          transition={{
+            delay: 1.15,
+            duration: 1.2,
+            ease: easeOutLuxury,
+          }}
           className="
             mx-auto
             mt-2
@@ -269,19 +249,24 @@ const textOpacity = useTransform(
             md:mt-7
             md:mb-7
             w-[140px]
-            h-px
-            bg-[#c9baaa]/20
+            h-[1.5px]
+            bg-gradient-to-r
+            from-[#c9baaa]/0
+            via-[#c9baaa]/30
+            to-[#c9baaa]/0
+            origin-center
           "
         />
 
         {/* TAGLINE */}
         <motion.p
-                    initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 1.5,
-              duration: 1.6,
-            }}
+          initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{
+            delay: 1.35,
+            duration: 1.4,
+            ease: easeOutCinematic,
+          }}
           className="
             italic
             text-center
@@ -297,7 +282,8 @@ const textOpacity = useTransform(
             tracking-[0.03em]
             text-[#c9baaa]/55
             max-w-[720px]
-            -translate-x-[18px]
+            transition-opacity
+            duration-700
           "
         >
           Five fragrances. Five stories. One obsession.
@@ -305,27 +291,27 @@ const textOpacity = useTransform(
 
         {/* BUTTON */}
         <motion.div
-        
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 1.7,
-              duration: 1.6,
-            }}
-
-        className="flex justify-center mt-7">
-
-
-<Link
-  to="/Collection"
+          initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{
+            delay: 1.55,
+            duration: 1.35,
+            ease: easeOutCinematic,
+          }}
+          className="flex justify-center mt-7"
+        >
+          <Link
+            to="/Collection"
 className="
   group
   relative
   overflow-hidden
+
   uppercase
   text-[8px]
   sm:text-[9px]
   tracking-[0.42em]
+
   px-6
   sm:px-8
   md:px-10
@@ -334,21 +320,29 @@ className="
   border
   border-[#c9baaa]/20
 
-  text-[#c9baaa]
-   bg-[#1a1411]
+  !text-[#c9baaa]
+
+  bg-[#1a1411]
+  backdrop-blur-md
+
+
 
   transition-all
-  duration-500
+  duration-700
+  ease-out
 
   hover:bg-[#c9baaa]/10
-  hover:text-[#f5ede4]
+  hover:!text-[#f5ede4]
   hover:border-[#c9baaa]/40
+
+
+  active:scale-[0.98]
+  will-change-transform
 "
-  >  Discover The Collection
-</Link>
-
+          >
+            Discover The Collection
+          </Link>
         </motion.div>
-
       </motion.div>
 
     </section>

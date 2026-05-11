@@ -5,10 +5,11 @@ function ScrollToTop() {
   const { pathname } = useLocation()
 
   useEffect(() => {
+    // Smooth scroll to top with instant behavior for better UX
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant",
+      behavior: "auto",
     })
   }, [pathname])
 

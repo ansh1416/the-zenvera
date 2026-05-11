@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useCart } from "../context/CartContext"
+import { easeOutCinematic, easeOutLuxury } from "../utils/motion"
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -72,15 +73,14 @@ function Navbar() {
 
       {/* HEADER */}
       <motion.header
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.4,
-              duration: 1.6,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+        initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{
+          delay: 0.35,
+          duration: 1.4,
+          ease: easeOutCinematic,
+        }}
         className={`
-        
           fixed
           top-0
           left-0
@@ -89,16 +89,20 @@ function Navbar() {
           transition-transform
           duration-700
           border-b
+          text-[#c9baaa]
           border-white/[0.06]
           bg-black/30
           backdrop-blur-xl
-           ${showNavbar ? "translate-y-0" : "-translate-y-full"}`} >
+          ${showNavbar ? "translate-y-0" : "-translate-y-full"}`}
+      >
 
         {/* NAVBAR */}
         <nav
           className="
             relative
             z-[110]
+            text-[#c9baaa]
+            
 
             flex
             items-center
@@ -116,19 +120,15 @@ function Navbar() {
             to="/"
             className="
               text-[#f1e7db]
-
               text-[18px]
               sm:text-[18px]
               md:text-[18px]
-
-
               tracking-[0.42em]
               font-light
-
-              transition-opacity
-              duration-500
-
-              hover:opacity-80
+              transition-all
+              duration-600
+              hover:opacity-70
+              active:scale-95
             "
           >
             THE ZENVERA
@@ -143,7 +143,6 @@ function Navbar() {
               gap-12
             "
           >
-
             {navItems.map((item) => (
               <Link
                 key={item.path}
@@ -151,42 +150,35 @@ function Navbar() {
                 className="
                   group
                   relative
-
                   text-[14px]
                   uppercase
                   tracking-[0.30em]
-
-                  text-[#c9baaa]/55
-
+                  text-[#c9baaa]
                   transition-all
-                  duration-500
-
+                  duration-600
                   hover:text-[#f1e7db]
+                  will-change-transform
                 "
               >
                 {item.label}
-
                 <span
                   className="
                     absolute
                     left-0
                     -bottom-2
-
-                    h-px
+                    h-[1.5px]
                     w-0
-
-                    bg-[#c9baaa]/50
-
+                    bg-gradient-to-r
+                    from-[#c9baaa]/0
+                    via-[#c9baaa]/60
+                    to-[#c9baaa]/0
                     transition-all
-                    duration-500
-
+                    duration-600
                     group-hover:w-full
                   "
                 />
-
               </Link>
             ))}
-
           </div>
 
           {/* MOBILE BUTTON */}
@@ -213,6 +205,7 @@ function Navbar() {
                 w-5
                 h-px
                 bg-[#c9baaa]
+                
 
                 transition-all
                 duration-500
@@ -231,6 +224,7 @@ function Navbar() {
                 w-5
                 h-px
                 bg-[#c9baaa]
+                
 
                 transition-all
                 duration-500
@@ -254,28 +248,23 @@ function Navbar() {
      {/* MOBILE MENU */}
 {menuOpen && (
   <motion.div
-
-  initial={{ opacity: 0 }}
-animate={{ opacity: 1 }}
-exit={{ opacity: 0 }}
-
-transition={{
-  duration: 0.6,
-}}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{
+      duration: 0.5,
+      ease: easeOutLuxury,
+    }}
     className="
       fixed
       inset-0
       z-[100]
-
       md:hidden
-
       bg-[#050505]/96
       backdrop-blur-2xl
-
       flex
       items-start
       justify-center
-
       pt-56
       overflow-hidden
     "
@@ -372,24 +361,20 @@ transition={{
 
     {/* CONTENT */}
     <motion.div
-
-      initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  exit={{ opacity: 0, y: 10 }}
-
-  transition={{
-    delay: 0.2,
-    duration: 1,
-    ease: [0.22, 1, 0.36, 1],
-  }}
+      initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      exit={{ opacity: 0, y: 12, filter: "blur(4px)" }}
+      transition={{
+        delay: 0.15,
+        duration: 0.85,
+        ease: easeOutCinematic,
+      }}
       className="
         relative
         z-10
-
         flex
         flex-col
         items-center
-
         gap-10
       "
     >
@@ -422,51 +407,52 @@ transition={{
       </h1>
 
       {/* NAV ITEMS */}
-      {navItems.map((item) => (
-        <Link
+      {navItems.map((item, idx) => (
+        <motion.div
           key={item.path}
-          to={item.path}
-          onClick={() => setMenuOpen(false)}
-          className="
-            group
-            relative
-
-            text-[#c9baaa]
-
-            text-[18px]
-
-            uppercase
-            tracking-[0.32em]
-            font-light
-
-            transition-all
-            duration-500
-
-            hover:text-white
-          "
+          initial={{ opacity: 0, y: 16, filter: "blur(4px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{
+            delay: 0.25 + idx * 0.08,
+            duration: 0.8,
+            ease: easeOutCinematic,
+          }}
         >
-
-          {item.label}
-
-          <span
+          <Link
+            to={item.path}
+            onClick={() => setMenuOpen(false)}
             className="
-              absolute
-              left-0
-              -bottom-3
-
-              h-px
-              w-0
-
-              bg-[#c9baaa]/50
-
+              group
+              relative
+              !text-[#c9baaa]/90
+              text-[18px]
+              uppercase
+              tracking-[0.32em]
+              font-light
               transition-all
-              duration-500
-
-              group-hover:w-full
+              duration-600
+              hover:text-white
+              will-change-transform
             "
-          />
+          >
+            {item.label}
 
-        </Link>
+            <span
+              className="
+                absolute
+                left-0
+                -bottom-3
+                h-px
+                w-0
+                bg-[#c9baaa]/50
+                
+                transition-all
+                duration-500
+                group-hover:w-full
+              "
+            />
+          </Link>
+        </motion.div>
       ))}
 
     </motion.div>

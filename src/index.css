@@ -1,21 +1,172 @@
 @import "tailwindcss";
 
-@keyframes float {
-  0% {
-    transform: scale(1.02) translateY(0px);
-  }
-
-  50% {
-    transform: scale(1.05) translateY(-8px);
-  }
-
-  100% {
-    transform: scale(1.02) translateY(0px);
-  }
+/* SMOOTH SCROLL BEHAVIOR */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
+/* OPTIMIZE ANIMATIONS & RENDERING */
 html,
 body,
 #root {
   background: #050505;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* DISABLE TOUCH HIGHLIGHT ON MOBILE */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* SMOOTH TRANSITIONS FOR INTERACTIVE ELEMENTS */
+button,
+a,
+[role="button"] {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* CINEMATIC FLOAT ANIMATION - OPTIMIZED FOR 60FPS */
+@keyframes float {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.02);
+    animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+  }
+
+  50% {
+    transform: translate3d(0, -8px, 0) scale(1.05);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.02);
+    animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+  }
+}
+
+/* LUXURY FADE IN */
+@keyframes luxeFadeIn {
+  from {
+    opacity: 0;
+    filter: blur(12px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* CINEMATIC SCALE REVEAL */
+@keyframes scaleReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+/* BLUR TO FOCUS */
+@keyframes blurToFocus {
+  from {
+    filter: blur(20px);
+    opacity: 0;
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+/* SMOOTH SLIDE UP */
+@keyframes slideUpSoft {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 32px, 0);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+/* PERFORMANCE: WILL-CHANGE FOR ANIMATED ELEMENTS */
+.animate-float {
+  will-change: transform;
+  animation: float 14s ease-in-out infinite;
+}
+
+/* OPTIMIZE SCROLLING */
+body {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* IMPROVE TOUCH PERFORMANCE ON MOBILE */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* HIGH PERFORMANCE IMAGE LOADING */
+img {
+  will-change: auto;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* SMOOTH FOCUS STATES FOR ACCESSIBILITY */
+:focus-visible {
+  outline: 2px solid #c9baaa;
+  outline-offset: 2px;
+  transition: outline-offset 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* PREVENT LAYOUT SHIFT */
+html {
+  scroll-padding-top: 80px;
+  overflow-y: scroll;
+}
+
+/* SMOOTH LINK INTERACTIONS */
+a {
+  text-decoration: none;
+  outline: none;
+}
+
+/* OPTIMIZE BACKDROP BLUR PERFORMANCE */
+.backdrop-blur-xl {
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+/* CURSOR IMPROVEMENTS */
+* {
+  cursor: auto;
+}
+
+button,
+[role="button"],
+a {
+  cursor: pointer;
+}
+
+/* BETTER TEXT RENDERING IN ANIMATIONS */
+.text-premium {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }

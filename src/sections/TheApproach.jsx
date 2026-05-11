@@ -3,10 +3,10 @@ import {
   motion,
   useScroll,
   useTransform,
-  useMotionTemplate,
   AnimatePresence,
 } from "framer-motion"
 import { useRef, useState, useEffect } from "react"
+import { easeOutCinematic, easeOutLuxury } from "../utils/motion"
 
 function TheApproach() {
 
@@ -17,114 +17,44 @@ function TheApproach() {
     offset: ["start end", "end start"],
   })
 
-  const videoY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [120, -120]
-  )
+  // Premium parallax effect - subtle and expensive-feeling
+  const videoY = useTransform(scrollYProgress, [0, 1], [140, -140])
+  const textY = useTransform(scrollYProgress, [0, 1], [110, -110])
 
-  const textY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [100, -100]
-  )
+  
+  // Cinematic scale effect
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.05])
 
-  const intimacyX = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, 200]
-  )
 
-  const textOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.4],
-    [0.06, 0.18]
-  )
+const floatingWords = [
+  { text: "AFTER YOU", className: "top-[4%] left-[6%]" },
+  { text: "TOUCH", className: "top-[14%] left-[30%]" },
+  { text: "MINE", className: "top-[8%] right-[16%]" },
+  { text: "NAKED", className: "top-[52%] left-[18%]" },
+  { text: "OBSESSION", className: "bottom-[26%] left-[42%]" },
+  { text: "STILL", className: "top-[34%] left-[54%]" },
+  { text: "LINGER", className: "bottom-[16%] right-[10%]" },
+  { text: "CRAVE", className: "top-[66%] right-[8%]" },
+]
 
-  const videoScale = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [1, 1.18]
-  )
 
-  const videoRotate = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, -1.5]
-  )
-
-  const floatingWords = [
-    { text: "AFTER YOU", className: "top-[4%] left-[6%]" },
-    { text: "TOUCH", className: "top-[14%] left-[30%]" },
-    { text: "MINE", className: "top-[8%] right-[16%]" },
-
-    { text: "NAKED", className: "top-[52%] left-[18%]" },
-    { text: "OBSESSION", className: "bottom-[26%] left-[42%]" },
-    { text: "STILL", className: "top-[34%] left-[54%]" },
-
-    { text: "LINGER", className: "bottom-[16%] right-[10%]" },
-    { text: "CRAVE", className: "top-[66%] right-[8%]" },
-    { text: "CLOSER", className: "bottom-[8%] right-[28%]" },
-
-    { text: "SKIN", className: "top-[24%] left-[4%]" },
-    { text: "WARMTH", className: "top-[24%] left-[16%]" },
-
-    { text: "SLOW", className: "top-[76%] left-[8%]" },
-    { text: "FEVER", className: "bottom-[10%] left-[18%]" },
-
-    { text: "TEMPTATION", className: "bottom-[6%] left-[48%]" },
-
-    { text: "BREATH", className: "top-[22%] right-[2%]" },
-
-    { text: "DESIRE", className: "bottom-[24%] right-[2%]" },
-
-    { text: "LIPS", className: "bottom-[18%] right-[12%]" },
-  ]
-
-  const glitchWords = [
-    "INTIMACY",
-    "STILL",
-    "MINE",
-    "YOU",
-    "NAKED",
-    "CLOSER",
-    "LINGER",
-    "DESIRE",
-    "VELVET",
-    "CRAVE",
-    "FEVER",
-  ]
-
-  const [activeWord, setActiveWord] = useState(0)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveWord((prev) => (prev + 1) % glitchWords.length)
-    }, 5000)
-
-    return () => clearInterval(interval)
-  }, [])
 
   return (
     <motion.section
-
-     initial={{ opacity: 0, y: 30 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, amount: 0.2 }}
-  transition={{
-    duration: 1.8,
-    ease: [0.22, 1, 0.36, 1],
-  }}
-
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{
+        duration: 1.6,
+        ease: easeOutCinematic,
+      }}
       ref={sectionRef}
-
-
-className="
-  relative
-  overflow-hidden
-  bg-black
-  z-10
-"
+      className="
+        relative
+        overflow-hidden
+        bg-black
+        z-10
+      "
     >
 
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
@@ -142,40 +72,31 @@ className="
                 scrollYProgress,
                 [0, 1],
                 i % 2 === 0
-                  ? [0, -180 - i * 20]
-                  : [0, 120 + i * 10]
-              ),
-
-              x: useTransform(
-                scrollYProgress,
-                [0, 1],
-                i % 3 === 0
-                  ? [0, 60]
-                  : i % 2 === 0
-                  ? [0, -40]
-                  : [0, 25]
+                  ? [0, -70 - i * 8]
+                  : [0, 50 + i * 5]
               ),
 
               opacity: useTransform(
                 scrollYProgress,
                 [0, 0.5],
-                [0.03, 0.09]
+                [0.10, 0.22]
               ),
             }}
           >
 
             <span
               className={`
-                text-[18px]
-                ${i % 3 === 0 ? "md:text-[42px]" : "md:text-[30px]"}
-                font-light
-                uppercase
-                tracking-[0.45em]
-                text-white
-                blur-[2px]
-                whitespace-nowrap
-                select-none
-              `}
+  text-[14px]
+  ${i % 3 === 0 ? "md:text-[42px]" : "md:text-[30px]"}
+  sm:text-[18px]
+  font-light
+  uppercase
+  tracking-[0.32em]
+  text-white/80
+  opacity-90
+  whitespace-nowrap
+  select-none
+`}
             >
               {item.text}
             </span>
@@ -188,228 +109,23 @@ className="
 
       <div className="absolute inset-0 pointer-events-none">
 
-        <div className="hidden md:block absolute right-[45%] h-[100%] w-px bg-white/[0.05] blur-[1px]" />
+        <div className="hidden md:block absolute right-[45%] h-[100%] w-px bg-white/[0.07] blur-[1px]" />
 
-        <div className="hidden md:block absolute right-0 top-[80px] h-px w-[52%] bg-white/[0.05] blur-[1px]" />
+        <div className="hidden md:block absolute right-0 top-[80px] h-px w-[52%] bg-white/[0.07] blur-[1px]" />
 
-        <div className="hidden md:block absolute right-0 bottom-[80px] h-px w-[52%] bg-white/[0.05] blur-[1px]" />
+        <div className="hidden md:block absolute right-0 bottom-[80px] h-px w-[52%] bg-white/[0.07] blur-[1px]" />
 
-        <div className="md:hidden absolute top-[70px] left-0 h-px w-full bg-white/[0.05] blur-[1px]" />
+        <div className="md:hidden absolute top-[70px] left-0 h-px w-full bg-white/[0.14] blur-[1px]" />
 
-        <div className="md:hidden absolute left-0 top-162 h-px w-full bg-white/[0.05] blur-[1px]" />
+        <div className="md:hidden absolute left-0 top-162 h-px w-full bg-white/[0.14] blur-[1px]" />
 
-        <div className="md:hidden absolute top-10 right-4 w-px h-160 bg-white/[0.05] blur-[1px]" />
+        <div className="md:hidden absolute top-10 right-4 w-px h-160 bg-white/[0.14] blur-[1px]" />
 
-        <div className="md:hidden absolute left-4 top-10 w-px h-160 bg-white/[0.05] blur-[1px]" />
+        <div className="md:hidden absolute left-4 top-10 w-px h-160 bg-white/[0.14] blur-[1px]" />
 
-        {/* DESKTOP */}
-        <motion.div
-          style={{
-            x: intimacyX,
-          }}
-          className="
-            hidden
-            lg:block
-            absolute
-            right-[56%]
-            top-[54%]
-            -translate-y-1/2
-            select-none
-            pointer-events-none
-            z-20
-          "
-        >
+        
 
-          <AnimatePresence mode="wait">
-
-            <motion.div
-              key={glitchWords[activeWord]}
-              initial={{
-                opacity: 0,
-                filter: "blur(4px)",
-                y: 10,
-              }}
-              animate={{
-                opacity: 1,
-                filter: "blur(0px)",
-                y: 0,
-              }}
-              exit={{
-                opacity: 0,
-                filter: "blur(2px)",
-                y: -10,
-              }}
-              transition={{
-                duration: 1,
-                ease: "easeInOut",
-              }}
-              className="relative"
-            >
-
-              <span
-                className="
-                  absolute
-                  left-[-2px]
-                  top-[-2px]
-                  text-[70px]
-                  font-medium
-                  tracking-[0.30em]
-                  uppercase
-                  opacity-[0.28]
-                  whitespace-nowrap
-                  text-red-800/[0.58]
-                  blur-[1px]
-                "
-                style={{
-                  writingMode: "vertical-rl",
-                }}
-              >
-                {glitchWords[activeWord].split("").join(" ")}
-              </span>
-
-              <span
-                className="
-                  absolute
-                  left-[2px]
-                  top-[2px]
-                  text-[70px]
-                  font-medium
-                  tracking-[0.30em]
-                  uppercase
-                  whitespace-nowrap
-                  opacity-[0.28]
-                  text-blue-800/[0.55]
-                  blur-[1px]
-                "
-                style={{
-                  writingMode: "vertical-rl",
-                }}
-              >
-                {glitchWords[activeWord].split("").join(" ")}
-              </span>
-
-              <span
-                className="
-                  relative
-                  text-[70px]
-                  font-medium
-                  tracking-[0.27em]
-                  uppercase
-                  whitespace-nowrap
-                  text-white/[0.32]
-                "
-                style={{
-                  writingMode: "vertical-rl",
-                  textShadow: "0 0 10px rgba(255,255,255,0.04)",
-                }}
-              >
-                {glitchWords[activeWord].split("").join(" ")}
-              </span>
-
-            </motion.div>
-
-          </AnimatePresence>
-
-        </motion.div>
-
-        {/* MOBILE */}
-        <motion.div
-          className="
-            lg:hidden
-            absolute
-            bottom-[425px]
-            left-1/2
-            -translate-x-1/2
-            select-none
-            pointer-events-none
-            z-20
-          "
-        >
-
-          <AnimatePresence mode="wait">
-
-            <motion.div
-              key={glitchWords[activeWord]}
-              initial={{
-                opacity: 0,
-                filter: "blur(4px)",
-                y: 10,
-              }}
-              animate={{
-                opacity: 1,
-                filter: "blur(0px)",
-                y: 0,
-              }}
-              exit={{
-                opacity: 0,
-                filter: "blur(2px)",
-                y: -10,
-              }}
-              transition={{
-                duration: 1,
-                ease: "easeInOut",
-              }}
-              className="relative"
-            >
-
-              <span
-                className="
-                  absolute
-                  left-[-4px]
-                  top-[-4px]
-                  text-[36px]
-                  font-medium
-                  tracking-[0.26em]
-                  uppercase
-                  opacity-[0.60]
-                  whitespace-nowrap
-                  text-red-800/[0.58]
-                  blur-[1px]
-                "
-              >
-                {glitchWords[activeWord].split("").join(" ")}
-              </span>
-
-              <span
-                className="
-                  absolute
-                  left-[4px]
-                  top-[4px]
-                  text-[36px]
-                  font-medium
-                  tracking-[0.26em]
-                  uppercase
-                  opacity-[0.60]
-                  whitespace-nowrap
-                  text-blue-800/[0.55]
-                  blur-[1px]
-                "
-              >
-                {glitchWords[activeWord].split("").join(" ")}
-              </span>
-
-              <span
-                className="
-                  relative
-                  text-[36px]
-                  tracking-[0.26em]
-                  font-medium
-                  uppercase
-                  text-white/[0.38]
-                  whitespace-nowrap
-                "
-                style={{
-                  textShadow: "0 0 10px rgba(255,255,255,0.04)",
-                }}
-              >
-                {glitchWords[activeWord].split("").join(" ")}
-              </span>
-
-            </motion.div>
-
-          </AnimatePresence>
-
-        </motion.div>
+    
 
       </div>
 
@@ -433,14 +149,16 @@ className="
         <motion.div
           initial={{
             opacity: 0,
-            y: 50,
+            y: 40,
+            
           }}
           whileInView={{
             opacity: 1,
             y: 0,
           }}
           transition={{
-            duration: 1,
+            duration: 1.4,
+            ease: easeOutCinematic,
           }}
           viewport={{ once: true }}
           className="
@@ -459,21 +177,31 @@ className="
               tracking-[0.35em]
               uppercase
               text-neutral-500
+              transition-all
+              duration-700
             "
           >
             THE APPROACH
           </p>
 
           <motion.h2
-            animate={{
-              opacity: [0.92, 1, 0.92],
+            initial={{ opacity: 0.6 }}
+            whileInView={{ 
+              opacity: 1,
+              transition: {
+                delay: 0.2,
+                duration: 1.2,
+                ease: easeOutCinematic,
+              }
             }}
+
             transition={{
-              duration: 4,
+              duration: 4.5,
               repeat: Infinity,
+              ease: "easeInOut",
             }}
             className="
-              text-[#e7d8ce]
+              text-[#c9baaa]/80
               uppercase
               leading-[0.9]
               tracking-[-0.06em]
@@ -481,9 +209,12 @@ className="
               sm:text-5xl
               md:text-7xl
               font-light
+              transition-colors
+              duration-700
             "
-                        style={{
+            style={{
               fontFamily: "'Cormorant Garamond', serif",
+
             }}
           >
             YOU WERE MEANT
@@ -491,39 +222,59 @@ className="
             TO STAY THIS CLOSE.
           </motion.h2>
 
-          <p
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ 
+              opacity: 1,
+              transition: {
+                delay: 0.3,
+                duration: 1.2,
+                ease: easeOutCinematic,
+              }
+            }}
             className="
               mt-10
               md:mt-14
               max-w-md
-              text-neutral-500
+              text-[#c9baaa]
               leading-relaxed
               text-sm
               md:text-[15px]
+              transition-opacity
+              duration-700
             "
           >
             THE ZENVERA explores intimacy through scent,
             memory, warmth, and emotional temptation.
             A quiet atmosphere where desire lingers softly,
             like perfume left behind on skin.
-          </p>
+          </motion.p>
 
           <motion.p
-            animate={{
-              opacity: [0.4, 1, 0.4],
+            initial={{ opacity: 0.2 }}
+            whileInView={{ 
+              opacity: 1,
+              transition: {
+                delay: 0.4,
+                duration: 1.2,
+              }
             }}
             transition={{
-              duration: 4,
+              duration: 4.5,
               repeat: Infinity,
+              ease: "easeInOut",
             }}
             className="
               mt-14
               italic
-              text-neutral-400
+              text-[#c59057]
               text-sm
+              uppercase
+              transition-opacity
+              duration-700
             "
           >
-            “Some people stay on skin longer than memory.”
+            “Some people stay on skin longer than memory”
           </motion.p>
 
         </motion.div>
@@ -553,13 +304,13 @@ className="
 
             <motion.div
               animate={{
-                x: ["-10%", "10%", "-10%"],
-                y: ["-5%", "5%", "-5%"],
-                scale: [1, 1.2, 1],
-                opacity: [0.12, 0.22, 0.12],
+                x: ["-8%", "8%", "-8%"],
+                y: ["-6%", "6%", "-6%"],
+                scale: [1, 1.15, 1],
+                opacity: [0.10, 0.20, 0.10],
               }}
               transition={{
-                duration: 10,
+                duration: 12,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
@@ -572,6 +323,7 @@ className="
                 bg-white
                 mix-blend-soft-light
                 pointer-events-none
+                will-change-transform
               "
             />
 
@@ -579,17 +331,13 @@ className="
               style={{
                 y: videoY,
                 scale: videoScale,
-                rotate: videoRotate,
               }}
               autoPlay
               muted
               loop
               playsInline
-              animate={{
-                x: ["0%", "-2%", "0%"],
-              }}
               transition={{
-                duration: 12,
+                duration: 14,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
@@ -599,10 +347,12 @@ className="
                 h-full
                 w-full
                 object-cover
-                grayscale
+                saturate-[0.9]
                 contrast-[1.5]
-                brightness-[0.42]
+                brightness-[0.62]
                 opacity-[0.82]
+                transform-gpu
+                will-change-transform
               "
             >
               <source src={memoryVide} type="video/mp4" />
@@ -613,30 +363,25 @@ className="
                 absolute
                 inset-0
                 z-10
-                bg-black/28
+                bg-black/26
               "
             />
 
             <motion.div
-              animate={{
-                rotate: [0, 8, -6, 0],
-                scale: [1, 1.15, 0.95, 1],
-                opacity: [0.08, 0.18, 0.1, 0.08],
-              }}
               transition={{
-                duration: 10,
+                duration: 12,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
               className="
                 absolute
-                -top-[20%]
-                -left-[20%]
-                w-[140%]
-                h-[140%]
+                -top-[25%]
+                -left-[25%]
+                w-[150%]
+                h-[150%]
                 z-20
                 rounded-full
-                blur-[120px]
+                blur-[70px]
                 bg-white
                 mix-blend-overlay
                 pointer-events-none

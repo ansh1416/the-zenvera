@@ -1,5 +1,6 @@
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
+import { easeOutCinematic } from "../utils/motion"
 
 function Footer() {
 
@@ -97,26 +98,23 @@ function Footer() {
 
           {/* HERO */}
           <motion.div
-
             initial={{
               opacity: 0,
-              y: 50,
+              y: 60,
+              filter: "blur(3px)",
             }}
-
             whileInView={{
               opacity: 1,
               y: 0,
+              filter: "blur(0px)",
             }}
-
             viewport={{
               once: true,
             }}
-
             transition={{
-              duration: 1.4,
-              ease: [0.22, 1, 0.36, 1],
+              duration: 1.5,
+              ease: easeOutCinematic,
             }}
-
             className="
               max-w-[1100px]
             "
@@ -125,15 +123,13 @@ function Footer() {
             <p
               className="
                 uppercase
-
                 text-[10px]
                 md:text-[11px]
-
                 tracking-[0.42em]
-
                 text-[#c9baaa]/30
-
                 mb-8
+                transition-colors
+                duration-700
               "
             >
               Final Obsession
@@ -142,18 +138,16 @@ function Footer() {
             <h2
               className="
                 uppercase
-
                 text-[52px]
                 sm:text-[72px]
                 md:text-[110px]
                 lg:text-[140px]
-
                 leading-[0.84]
                 tracking-[-0.08em]
-
                 text-[#c9baaa]
-
                 mb-10
+                transition-colors
+                duration-700
               "
               style={{
                 fontFamily:
@@ -168,14 +162,13 @@ function Footer() {
             <p
               className="
                 max-w-[720px]
-
                 text-[15px]
                 sm:text-[17px]
                 md:text-[21px]
-
                 leading-[2]
-
                 text-[#c9baaa]/48
+                transition-opacity
+                duration-700
               "
             >
               A cinematic fragrance house
