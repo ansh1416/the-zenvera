@@ -1,4 +1,5 @@
 import { useRef } from "react"
+import { useNavigate } from "react-router-dom"
 
 import AfterYou from "../assets/AfterYou.PNG"
 import Closer from "../assets/Closer.PNG"
@@ -13,6 +14,7 @@ import {
   useTransform,
 } from "framer-motion"
 import { easeOutCinematic, easeOutLuxury } from "../utils/motion"
+
 
 const fragrances = [
   {
@@ -43,6 +45,8 @@ const fragrances = [
 ]
 
 function TheObsession() {
+
+  const navigate = useNavigate()
 
   const sectionRef = useRef(null)
 
@@ -126,12 +130,12 @@ function TheObsession() {
             initial={{
               opacity: 0,
               y: 18,
-              filter: "blur(2px)",
+
             }}
             whileInView={{
               opacity: 1,
               y: 0,
-              filter: "blur(0px)",
+
             }}
             viewport={{
               once: true,
@@ -159,12 +163,10 @@ function TheObsession() {
             initial={{
               opacity: 0,
               y: 32,
-              filter: "blur(3px)",
             }}
             whileInView={{
               opacity: 1,
               y: 0,
-              filter: "blur(0px)",
             }}
             viewport={{
               once: true,
@@ -226,17 +228,15 @@ function TheObsession() {
           {/* DESCRIPTION */}
           <motion.p
             style={{
-              x: contentY,
+              x: -contentY,
             }}
             initial={{
               opacity: 0,
               y: 16,
-              filter: "blur(4px)",
             }}
             whileInView={{
               opacity: 1,
               y: 0,
-              filter: "blur(0px)",
             }}
             viewport={{
               once: true,
@@ -390,13 +390,12 @@ function TheObsession() {
           initial={{
             opacity: 0,
             y: 80,
-            filter: "blur(2px)",
+
             scale: 0.92,
           }}
           whileInView={{
             opacity: 1,
             y: 0,
-            filter: "blur(0px)",
             scale: 1,
           }}
           viewport={{
@@ -524,12 +523,11 @@ function TheObsession() {
   initial={{
     opacity: 0,
     y: 60,
-    filter: "blur(2px)",
   }}
   whileInView={{
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
+    
   }}
   viewport={{
     once: false,
@@ -759,9 +757,9 @@ function TheObsession() {
     scale: 0.98,
   }}
 
-  onClick={() => {
-    window.location.href = `/fragrance/${item.name.toLowerCase().replace(/\s+/g, "-")}`
-  }}
+onClick={() => {
+  navigate(`/fragrance/${item.name.toLowerCase().replace(/\s+/g, "-")}`)
+}}
 
   className={`
     group
